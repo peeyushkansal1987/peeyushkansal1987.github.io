@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +68,15 @@
 div.cartodb-popup.header div.cartodb-popup-content {
     max-height: 400px!important;
 }
+
+div.cont {
+background: url(./images/leftBkg.png) repeat-y;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    }
 div.cartodb-popup.header.v2.header {
     min-height: 400px!important;
 }
@@ -93,22 +103,42 @@ div.cartodb-popup.header.v2.header {
     background: #fff;
     z-index: 105;
 }
+div#leftBkg {
+    background: url(./images/leftBkgfinal.png) repeat-y;
+    width: 619px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    pointer-events: none;
+}
+div.left1 {
+    left: 60px;
+    top: 60px;
+    z-index: 3;
+}
+
     </style>
 
-    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="cartodb.css" />
    
     <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script src="cartodb.js"></script>
 
 </head>
-<body style="background-color:rgb(151, 206, 255)">
+<body style="">
+
+<div id="map" style="margin-left:350px">
+</div>
+<div id="leftBkg"></div>
+    <div class="left1" >
 <div class='left-title'>
 <b>VANNECK<BR/>PORTFOLIO</b>
 </div>
 <p class='description'>
 
 </p>
-	<div id="map" style="margin-left:380px"></div>
+	</div>
 	
 <div class='cartodb-legend custom left'>    
 
@@ -172,7 +202,6 @@ div.cartodb-popup.header.v2.header {
     </div>
 	  <div class="cartodb-popup-content-wrapper">
 	    <div class="cartodb-popup-content">
-	    <p>{{latitude}}{{longitude}}</p>
 	      <p>{{type}}</p>
           <p>{{lh_fh}}</p>
 	      <p>{{beds}} Beds / {{baths}} Baths</p>
@@ -201,7 +230,7 @@ div.cartodb-popup.header.v2.header {
 		var str=text;
 		var total_rent=0;
 		$.ajax({
-            url: "https://kansalenator.cartodb.com:443/api/v2/sql?q=select * from public.data_thomas_1&format=geojson&callback=?",
+            url: "https://kansalenator.cartodb.com:443/api/v2/sql?q=select * from public.table_01_3&format=geojson&callback=?",
             dataType: 'json',
             async: false,
             success: function(geojson) {
@@ -233,12 +262,12 @@ div.cartodb-popup.header.v2.header {
 
 	  var options = {
 	    zoom: 7, 
-	    zoomControl: false,  // dont add the zoom overlay (it is added by default)
+	    zoomControl: true,  // dont add the zoom overlay (it is added by default)
 	    loaderControl: false, //dont show tiles loader
 	    cartodb_logo:false
 	  };
 
-	  cartodb.createVis('map', 'https://kansalenator.cartodb.com/api/v2/viz/671e1bba-0b07-11e6-9b01-0e8c56e2ffdb/viz.json', options)
+	  cartodb.createVis('map', 'https://kansalenator.cartodb.com/api/v2/viz/1e432c60-1d1c-11e6-94ad-0e98b61680bf/viz.json', options)
 	    .done(function(vis, layers) {
 	      // there are two layers, base layer and points layer
 	      var sublayer = layers[1].getSubLayer(0);
