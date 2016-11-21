@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <style>
+      html, body, #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      div.cartodb-legend ul {
+	    padding: 0;
+	    margin: 0;
+	    list-style: none;
+	    position: fixed;
+	    left: initial;
+	    left: 60px;
+	    top: 390px;
+    }
+    div.left-title {
+        font-size:36.0pt;
+        font-family:"Arial",sans-serif;
+	    position: absolute;
+        left: 60px;
+        top: 60px;
+        z-index: 3;
+    }
+    p.description {
+        font-size:12.0pt;
+        font-family:"Arial",sans-serif;
+        position: absolute;
+        left: 60px;
+        top: 60px;
+        z-index: 3;
+        max-width: 300px;
+        margin-top: 120px;
+    }
+    div.left-title div#title {
+	    width: 428px;
+	    height: 195px;
+	    background: url(title.png) no-repeat;
+    }
+    div.cartodb-infobox {
+    padding: 0px!important;
+    position: absolute;
+    display: inline-block;
+    -webkit-box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+    -moz-box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+    box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+    background: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #999;
+    text-align: left;
+    z-index: 105;
+    width: 200px;
+    bottom: 10px!important;
+    max-height:370px;
+    right: 50px!important;
+    display: block;
+}
+div.cartodb-popup.header div.cartodb-popup-content {
+    max-height: 400px!important;
+}
+div.cartodb-popup.header.v2.header {
+    min-height: 400px!important;
+}
+   /*  div.cartodb-popup.v2 div.cartodb-popup-content-wrapper {
+    min-height: 230px!important;
+    } */
+    div.cartodb-legend {
+    position: static!important;
+    bottom: 35px;
+    right: 20px;
+    padding: 13px 15px 14px;
+    font: 400 13px Helvetica,Arial;
+    color: #858585;
+    text-align: left;
+    webkit-box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+    -moz-box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+    box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #999;
+    background: #fff;
+    z-index: 105;
+}
+    </style>
+
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+   
+    <!-- include cartodb.js library -->
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+</head>
+<body style="background-color:rgb(151, 206, 255)">
+<div class='left-title'>
+<b>VANNECK<BR/>PORTFOLIO</b>
+</div>
+<p class='description'>
+
+</p>
+	<div id="map" style="margin-left:380px"></div>
+	
+<div class='cartodb-legend custom left'>    
+
+<ul>
+    
+    <li>
+
+        <div class="bullet" style="background:#B40903"></div>
+        House 1 Bed
+    
+    </li>
+    
+    <li>
+
+        <div class="bullet" style="background:#FFA500"></div>
+        House 2 Bed
+    
+    </li>
+    
+    <li>
+
+        <div class="bullet" style="background:#A53ED5"></div>
+        House 3 Bed
+    
+    </li>
+    
+    <li>
+
+        <div class="bullet" style="background:#3E7BB6"></div>
+        Flat 1 bed
+    
+    </li>
+    
+    <li>
+
+        <div class="bullet" style="background:#229A00"></div>
+        Flat 2 bed
+    
+    </li>
+    
+    <li>
+
+        <div class="bullet" style="background:#2E5387"></div>
+        Flat 3 bed
+    
+    </li>
+   
+
+</ul>
+</div>
+ <div id="infobox" style="display:none">
+     <div class="cartodb-popup header with-image v2">
+	  <div class="cartodb-popup-header">
+	    <div class="cover">
+	      <div id="spinner"></div>
+	      <span class="separator"></span>
+	      <h1 class="order1">{{address}}</h1>
+	      <div class="shadow"></div>
+	      <img src="./images/{{property_ref}}.png"style="height:138px;width:236px;display:inline" />
+	    </div>
+    </div>
+	  <div class="cartodb-popup-content-wrapper">
+	    <div class="cartodb-popup-content">
+	    <p>{{latitude}}{{longitude}}</p>
+	      <p>{{type}}</p>
+          <p>{{lh_fh}}</p>
+	      <p>{{beds}} Beds / {{baths}} Baths</p>
+	      <p>Purchase price: &pound;{{purchase_price_str}}</p>
+	      <p>Passing rent / MRV pcm: &pound;{{passing_rent_maret_rent_pcm_str}}</p>
+          <p>Gross yield: {{gross_yield_pct}}%</p>
+          <p>Net yield: {{net_yield_pct}}%</p>
+	      <p>Managing Agent: {{managing_agent}}</p>
+	      <p>Tenant:{{tenant}}</p>
+	    </div>
+	  </div>
+      <div class="cartodb-popup-tip-container">
+      </div>
+    </div>
+ </div>
+	<script type="text/javascript">
+
+	var map;
+	var text='<b>The portfolio comprises [total_prop] properties ([total_house] houses, [total_flat] flats), located across Reading, Milton Keynes, Crawley and Colchester.<br/><br/>Total market rent of £[total_rent] pcm / £[total_rent_pa] pa.<br><br/>Combined purchase price of £[total_purchase_price].</b>'
+	 
+	function calculate() {
+		var total_prop=0;
+		var total_house=0;
+		var total_flat=0;
+		var total_purchase_price=0;
+		var str=text;
+		var total_rent=0;
+		$.ajax({
+            url: "https://kansalenator.cartodb.com:443/api/v2/sql?q=select * from public.data_thomas_1&format=geojson&callback=?",
+            dataType: 'json',
+            async: false,
+            success: function(geojson) {
+                $.each(geojson.features, function(i, feature) {
+                	total_prop++;
+                    if(feature.properties.type=='House') {
+                    	total_house++;
+                    } else {
+                    	total_flat++;
+                    }
+                    total_purchase_price+=feature.properties.purchase_price;
+                    total_rent+=Number(feature.properties.passing_rent_maret_rent_pcm);
+                });
+
+                str=str.replace("[total_prop]", total_prop);
+                str=str.replace("[total_house]", total_house);
+                str=str.replace("[total_flat]", total_flat);
+                str=str.replace("[total_purchase_price]", numberWithCommas(Math.round(total_purchase_price)));
+                str=str.replace("[total_rent]", numberWithCommas(Math.round(total_rent)));
+                str=str.replace("[total_rent_pa]", numberWithCommas(Math.round(total_rent*12)));
+                $(".description").html(str);
+            }
+          });
+	}
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	function main() {
+
+	  var options = {
+	    zoom: 7, 
+	    zoomControl: false,  // dont add the zoom overlay (it is added by default)
+	    loaderControl: false, //dont show tiles loader
+	    cartodb_logo:false
+	  };
+
+	  cartodb.createVis('map', 'https://kansalenator.cartodb.com/api/v2/viz/671e1bba-0b07-11e6-9b01-0e8c56e2ffdb/viz.json', options)
+	    .done(function(vis, layers) {
+	      // there are two layers, base layer and points layer
+	      var sublayer = layers[1].getSubLayer(0);
+	     
+	      //sublayer.infowindow.set('template', '');
+
+	      sublayer.set({ 'interactivity': ['longitude','latitude','property_ref','gross_yield_pct','net_yield_pct','purchase_price_str','type','address','baths','beds', 'lh_fh', 'managing_agent','passing_rent_maret_rent_pcm_str','tenant'] });
+
+	      // Set the custom infowindow template defined on the html
+	     
+	      // add the tooltip show when hover on the point
+	       vis.addOverlay({
+	        type: 'tooltip',
+	        position: 'top|center',
+	        template: '<p>{{address}}</p>'
+	      }); 
+	      
+	      vis.addOverlay({
+	        type: 'infobox',
+	        template: $("#infobox").html(),
+	        position: 'bottom|right'
+	      }); 
+
+	    }); 
+	  calculate();
+	}
+
+	window.onload = main;
+
+
+	</script>
+</body>
+</html>
